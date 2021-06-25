@@ -1,0 +1,130 @@
+package schoolsystem;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+
+public class deleteeve extends JFrame
+{
+    Font f1=new Font("times new roman",Font.BOLD,15);
+    Font f2=new Font("arial",Font.BOLD,20);
+    Font f3=new Font("arial",Font.BOLD,30);
+    Font f4=new Font("arial",Font.PLAIN,60);
+    Font f5=new Font("Times new roman",Font.BOLD,90);
+    
+    JTextField t1,t2,t3,t4;
+    JButton b1;
+    JPanel p1;
+    
+    deleteeve()
+    {
+         p1=new JPanel();
+        p1.setBounds(0,0,1310,30);
+        p1.setBackground(Color.ORANGE);
+        p1.setLayout(null);
+        add(p1);
+        
+        JLabel label=new JLabel("Delete Events");
+        label.setBounds(550,4,500,24);
+        label.setForeground(Color.BLACK);
+        label.setFont(f2);
+        p1.add(label);
+        
+        ImageIcon i1=new ImageIcon(ClassLoader.getSystemResource("images/first.png"));
+        Image i2=i1.getImage().getScaledInstance(20,20, Image.SCALE_DEFAULT);
+        ImageIcon i3=new ImageIcon(i2);
+        JLabel l1=new JLabel();
+        l1.setBounds(1285,5,20,20);
+        l1.setIcon(i3);
+        p1.add(l1);
+        p1.addMouseListener(new MouseAdapter()
+        {
+            public void mouseClicked(MouseEvent me)
+            {
+               new mainpage().setVisible(true);
+                dispose();
+            }
+        });
+        
+        JLabel day= new JLabel("Enter the Day");
+        day.setBounds(20,50,200,35);
+        day.setForeground(Color.WHITE);
+        day.setFont(f3);
+        add(day);
+        
+        t1=new JTextField();
+        t1.setBounds(320,50,200,35);
+        t1.setFont(f2);
+        t1.setForeground(Color.BLACK);
+        t1.setBackground(Color.WHITE);
+        add(t1);
+        
+        JLabel date=new JLabel("Enter the Date");
+        date.setBounds(20,110,220,35);
+        date.setForeground(Color.WHITE);
+        date.setFont(f3);
+        add(date);
+        
+        t2=new JTextField();
+        t2.setBounds(320,110,200,35);
+        t2.setFont(f2);
+        t2.setForeground(Color.BLACK);
+        t2.setBackground(Color.WHITE);
+        add(t2);   
+        
+        
+        
+        b1=new JButton("Delete Event");
+        b1.setBackground(Color.ORANGE);
+        b1.setFont(f2);
+        b1.setForeground(Color.BLACK);
+        b1.setFocusable(false);
+        b1.setBounds(170,320,200,30);
+        add(b1);
+        b1.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent ae)
+            {
+                
+                
+               try{
+                    Class.forName("org.apache.derby.jdbc.ClientDriver");
+                    Connection con=DriverManager.getConnection("jdbc:derby://localhost:1527//malhotraengineers","root","root");
+                    PreparedStatement pst=null;
+                    String str="DELETE  FROM product where quantity='100' ";
+                    pst=con.prepareStatement(str);
+                   /* pst.setString(1, t1.getText());
+                    pst.setString(2, t2.getText());
+                    int a=pst.executeUpdate();
+                    pst.close();
+                    con.close();
+                    t1.setText(null);
+                    t2.setText(null);*/
+            }catch(Exception ex){System.out.println(ex);};
+            
+            }
+        });
+        
+        ImageIcon i4=new ImageIcon(ClassLoader.getSystemResource("images/eve.jpeg"));
+        Image i5=i4.getImage().getScaledInstance(770, 390, Image.SCALE_DEFAULT);
+        ImageIcon i6=new ImageIcon(i5);
+        JLabel l2=new JLabel();
+        l2.setBounds(540,30,770,390);
+        l2.setIcon(i6);
+        add(l2);
+        
+        setSize(1310,400);
+        setLocation(300,250);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLayout(null);
+        getContentPane().setBackground(new Color(32,178,170));
+        setUndecorated(true);
+    }
+ public static void main(String args[])
+ {
+     new deleteeve().setVisible(true);
+ }
+}
